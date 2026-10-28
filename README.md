@@ -40,6 +40,7 @@ pip install -r requirements.txt
 ```bash
 python rates.py            # курсы по умолчанию: USD, EUR, CNY
 python rates.py USD GBP    # только выбранные валюты
+python rates.py --list     # список всех доступных валют
 ```
 
 📸 Пример вывода
