@@ -1,13 +1,18 @@
 import argparse
+import sys
 import requests
 
 API_URL = "https://www.cbr-xml-daily.ru/daily_json.js"
 
 
 def get_rates() -> dict:
-    response = requests.get(API_URL, timeout=10)
-    response.raise_for_status()
-    return response.json()
+    try:
+        response = requests.get(API_URL, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as err:
+        print(f"Ошибка при подключении к сервису ЦБ РФ: {err}", file=sys.stderr)
+        sys.exit(1)
 
 
 def main() -> None:
