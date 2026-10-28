@@ -19,9 +19,17 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Курсы валют ЦБ РФ")
     parser.add_argument("codes", nargs="*", default=["USD", "EUR", "CNY"],
                         help="Коды валют, например: USD EUR")
+    parser.add_argument("-l", "--list", action="store_true",
+                        help="Показать все доступные коды валют")
     args = parser.parse_args()
 
     data = get_rates()
+    if args.list:
+        print("Доступные валюты:")
+        for code, info in sorted(data["Valute"].items()):
+            print(f"  {code} — {info['Name']} (номинал: {info['Nominal']})")
+        return
+
     print(f"Курсы на {data['Date'][:10]}:")
     print(f"Предыдущий курс: {data['PreviousDate'][:10]}")
     for code in args.codes:
